@@ -1,8 +1,8 @@
 package com.travelagency.controller;
 
-import com.seg.model.Hotel;
-import com.seg.repository.HotelRepository;
-import com.seg.slugify.TagSlugifier;
+import com.travelagency.model.Hotel;
+import com.travelagency.repository.HotelRepository;
+import com.travelagency.slugify.TagSlugify;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class HotelController {
     private HotelRepository hotelRepository;
 
-    private TagSlugifier tagSlugifier = new TagSlugifier();
+    private TagSlugify tagSlugifier = new TagSlugify();
 
 
     @Autowired
