@@ -1,7 +1,8 @@
 package com.travelagency.controller;
 
-import com.seg.security.user.User;
-import com.seg.security.user.UserRepository;
+
+import com.travelagency.model.User;
+import com.travelagency.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/users")
