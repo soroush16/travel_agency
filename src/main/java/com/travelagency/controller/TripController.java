@@ -1,7 +1,7 @@
 package com.travelagency.controller;
 
-import com.seg.model.Trip;
-import com.seg.service.impl.TripService;
+import com.travelagency.model.Trip;
+import com.travelagency.service.TripServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,17 +15,17 @@ import java.util.List;
 public class TripController {
 
 
-    private TripService tripService;
+    private TripServiceImpl tripServiceImpl;
 
     @Autowired
-    public TripController( TripService tripService) {
-        this.tripService= tripService;
+    public TripController( TripServiceImpl tripServiceImpl) {
+        this.tripServiceImpl = tripServiceImpl;
     }
 
     @GetMapping
     public ResponseEntity<List<Trip>> findAllTrips(){
 
-        List<Trip> customerList = tripService.getAllTrips();
+        List<Trip> customerList = tripServiceImpl.getAllTrips();
         return new ResponseEntity<>(customerList, HttpStatus.OK);
 
         }
@@ -33,25 +33,25 @@ public class TripController {
     @GetMapping("/{id}")
     public ResponseEntity<Trip> findTripById(@PathVariable long id) {
 
-        return new ResponseEntity<>(tripService.getTripById(id), HttpStatus.OK);
+        return new ResponseEntity<>(tripServiceImpl.getTripById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Trip> addTrip(@Valid @RequestBody Trip trip) {
 
-        return new ResponseEntity<>(tripService.saveTrip(trip), HttpStatus.CREATED);
+        return new ResponseEntity<>(tripServiceImpl.saveTrip(trip), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<Trip> updateTrip(@Valid @RequestBody Trip trip) {
 
-        return new ResponseEntity<>(tripService.updateTrip(trip), HttpStatus.OK);
+        return new ResponseEntity<>(tripServiceImpl.updateTrip(trip), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTripById(@PathVariable long id) {
 
-         tripService.deleteTripById(id);
+         tripServiceImpl.deleteTripById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -59,7 +59,7 @@ public class TripController {
 
     @DeleteMapping()
     public ResponseEntity<HttpStatus> deleteAllTrips() {
-        tripService.deleteAllTrips();
+        tripServiceImpl.deleteAllTrips();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
