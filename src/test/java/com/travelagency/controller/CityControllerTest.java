@@ -81,8 +81,8 @@ class CityControllerTest {
     @Test
     void shouldCheckIfFindByIdMethodIsCalledAndResponseIsOk() throws Exception {
         City city = new City("istanbul");
-        when(repository.findById(0l)).thenReturn(Optional.of(city));
-        mockMvc.perform(get("/api/cities/{id}", 0l).contentType(MediaType.APPLICATION_JSON)
+        when(repository.findById(1l)).thenReturn(Optional.of(city));
+        mockMvc.perform(get("/api/cities/{id}", 1l).contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(city))).andDo(print())
                 .andExpect(status().isOk()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 

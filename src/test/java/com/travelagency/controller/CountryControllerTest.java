@@ -71,7 +71,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldCheckIfFindbyidMethodIsCalledAndResponseIsOkAndExpectedValuesExists() throws Exception {
+    void shouldCheckIfGetCountryByIdMethodIsCalledAndResponseIsOkAndExpectedValuesExists() throws Exception {
 
         long id = 1L;
 
@@ -104,7 +104,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldCheckForUpdatedValuesAndResponseIsOk() throws Exception {
+    void shouldCheckIfUpdateCountryMethodIsCalledAndUpdatedValuesIsCorrectAndResponseIsOk() throws Exception {
         Country updatedCountry = new Country("Spain", "", "Many pools", "Türkiye.img");
 
         when(countryService.updateCountry(ArgumentMatchers.any(Country.class))).thenReturn(updatedCountry);

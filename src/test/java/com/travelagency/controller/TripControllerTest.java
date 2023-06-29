@@ -54,9 +54,9 @@ public class TripControllerTest {
 
 
     @Test
-    void shouldCheckIfSaveMethodIsCalledWithTripArgumentAndResponseIsCreated() throws Exception {
+    void shouldCheckIfSaveTripMethodIsCalledWithTripArgumentAndResponseIsCreated() throws Exception {
 
-        Trip myTrip = new Trip(new User(0L, "Ben", "Tamm", "Eku@mail.com"),
+        Trip myTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                         new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
@@ -77,7 +77,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldCheckIfFindByIdMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
+    void shouldCheckIfGetTripByIdMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         long id = 1L;
 
         Trip myTrip = new Trip(new User(id, "Ben", "Tamm", "Eku@mail.com"),
@@ -128,7 +128,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldCheckForUpdatedValuesAndResponseIsOk() throws Exception {
+    void shouldCheckIdUpdateTripMethodIsCalledAndValuesAreUpdatedAndResponseIsOk() throws Exception {
 
         Trip myUpdatedTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,

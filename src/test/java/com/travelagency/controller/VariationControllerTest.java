@@ -82,7 +82,7 @@ class VariationControllerTest {
     }
 
     @Test
-    void shouldCheckIfGetAllMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
+    void shouldCheckIFindAllMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         Country country = new Country("Turkey", "iiiii", "oopospaos", "kjksahhs");
         City city = new City("istanbul");
 
@@ -128,7 +128,7 @@ class VariationControllerTest {
 
     @Test
     void shouldReturnNoContentResponseForDeletedVariation() throws Exception {
-        Long id = 0l;
+        Long id = 1l;
         doNothing().when(repository).deleteById(id);
 
         mockMvc.perform(delete("/api/variations/{id}", id)).andDo(print()).andExpect(status().isNoContent())
