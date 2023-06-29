@@ -55,7 +55,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldCreateCountry() throws Exception {
+    void shouldCheckIfSaveMethodIsCalledWithCountryArgumentAndResponseIsCreated() throws Exception {
 
         Country country = new Country("Türkiye", "", "Nice view", "Türkiye.img");
 
@@ -71,7 +71,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldReturnCountryById() throws Exception {
+    void shouldCheckIfFindbyidMethodIsCalledAndResponseIsOkAndExpectedValuesExists() throws Exception {
 
         long id = 1L;
 
@@ -88,7 +88,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldReturnAllCountries() throws Exception {
+    void shouldCheckIfGetAllCountriesMethodIsCalledAndResponseIsOkAndExpectedValueExists() throws Exception {
         List<Country> listOfCountries = new ArrayList<>(Arrays.asList(new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new Country("Greece", "", "Many pools", "Greece.img"),
                 new Country("Italy", "", "Nice view", "Italy.img")));
@@ -104,7 +104,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldCheckForUpdatedValuesAndResponseCheck() throws Exception {
+    void shouldCheckForUpdatedValuesAndResponseIsOk() throws Exception {
         Country updatedCountry = new Country("Spain", "", "Many pools", "Türkiye.img");
 
         when(countryService.updateCountry(ArgumentMatchers.any(Country.class))).thenReturn(updatedCountry);
@@ -120,7 +120,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldDeleteCountryId() throws Exception {
+    void shouldReturnNoContentResponseForDeletedCountry() throws Exception {
         long id = 1L;
 
         doNothing().when(countryService).deleteCountryById(id);
@@ -131,7 +131,7 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldDeleteAllCountries() throws Exception {
+    void shouldReturnNoContentResponseForAllDeletedCountries() throws Exception {
 
         doNothing().when(countryService).deleteAllCountries();
         mockMvc.perform(delete("/api/countries"))

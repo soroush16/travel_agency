@@ -64,7 +64,7 @@ class VariationControllerTest {
 
 
     @Test
-    void shouldCreateVariationAndReturnIsOkResponse() throws Exception {
+    void shouldCheckIfSaveMethodIsCalledWithVariationArgumentAndResponseIsCreated() throws Exception {
         Country country = new Country("Turkey", "iiiii", "oopospaos", "kjksahhs");
         City city = new City("istanbul");
         Hotel hotel = new Hotel("hotel", "some hotel", "hhhggs", country, city, "iiii");
@@ -82,7 +82,7 @@ class VariationControllerTest {
     }
 
     @Test
-    void shouldGetAllVariationsAndReturnIsOkResponse() throws Exception {
+    void shouldCheckIfGetAllMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         Country country = new Country("Turkey", "iiiii", "oopospaos", "kjksahhs");
         City city = new City("istanbul");
 
@@ -93,15 +93,16 @@ class VariationControllerTest {
         when(repository.findAll()).thenReturn(variations);
 
         mockMvc.perform(get("/api/variations").contentType(MediaType.APPLICATION_JSON).content(new ObjectMapper().writeValueAsString(variations))).andDo(print())
-                .andExpect(status().isOk()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(variations.size()))
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 
     @Test
-    void shouldUpdateVariationAndReturnIsOkResponse() throws Exception {
+    void shouldCheckForUpdatedValuesAndResponseIsOk() throws Exception {
         Country country = new Country("Turkey", "iiiii", "oopospaos", "kjksahhs");
         City city = new City("istanbul");
-
 
         Hotel hotel = new Hotel("hotel", "some hotel", "hhhggs", country, city, "iiii");
         Variation variation = new Variation(new Date(2023 - 02 - 10), 2, MealPlan.AI, hotel, new BigDecimal("200.00"), 4);
@@ -118,7 +119,7 @@ class VariationControllerTest {
     }
 
     @Test
-    void shouldDeleteAllVariationsAndReturnNoContentResponse() throws Exception {
+    void shouldReturnNoContentResponseForAllDeletedVariations() throws Exception {
         doNothing().when(repository).deleteAll();
 
         mockMvc.perform(delete("/api/variations")).andDo(print()).andExpect(status().isNoContent())
@@ -126,7 +127,7 @@ class VariationControllerTest {
     }
 
     @Test
-    void shouldDeleteVariationByIdAndReturnNoContentResponse() throws Exception {
+    void shouldReturnNoContentResponseForDeletedVariation() throws Exception {
         Long id = 0l;
         doNothing().when(repository).deleteById(id);
 

@@ -58,7 +58,7 @@ public class HotelControllerTest {
 
 
     @Test
-    void shouldCreateHotel() throws Exception {
+    void shouldCheckIfSaveMethodIsCalledWithHotelArgumentAndResponseIsCreated() throws Exception {
         Country country = new Country("Turkiye", "", "Nice view", "Türkiye.img");
         City city = new City("Payallar");
         Hotel hotel = new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231", country, city, "Kolibri.img");
@@ -75,7 +75,7 @@ public class HotelControllerTest {
     }
 
     @Test
-    void shouldReturnHotelByTag() throws Exception {
+    void shouldCheckIfFindHotelByTagMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         Hotel hotel = new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "grand-kolibri-prestige-spa-5234",
                 new Country("Türkiye", "grand-kolibri-prestige-spa", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img");
@@ -92,7 +92,7 @@ public class HotelControllerTest {
     }
 
     @Test
-    void shouldReturnAllHotels() throws Exception {
+    void shouldCheckIfFindAllMethodIsCalledAndResponseIsOkAndExpectedValuesExists() throws Exception {
         List<Hotel> listOfHotels = new ArrayList<>(Arrays.asList(new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                         new Country("Türkiye", "grand-kolibri-prestige-spa", "Nice view", "Türkiye.img"),
                         new City("Payallar"), "Kolibri.img"),
@@ -114,17 +114,12 @@ public class HotelControllerTest {
     }
 
     @Test
-    void shouldUpdateHotel() throws Exception {
-
-        Hotel hotel = new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
-                new Country("Türkiye", "", "Nice view", "Türkiye.img"),
-                new City("Payallar"), "Kolibri.img");
+    void shouldCheckValuesAreUpdatedAndResponseIsOk() throws Exception {
 
         Hotel updatedHotel = new Hotel("Grand Kolibri Prestige & Spa", "many pools", "5231",
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img");
 
-        when(hotelRepository.findHotelByTag("")).thenReturn(Optional.of(hotel));
         when(hotelRepository.save(ArgumentMatchers.any(Hotel.class))).thenReturn(updatedHotel);
 
 
@@ -135,11 +130,10 @@ public class HotelControllerTest {
                 .andExpect(jsonPath("$.description").value("many pools"))
                 .andDo(print())
                 .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
-
     }
 
     @Test
-    void shouldDeleteHotelById() throws Exception {
+    void shouldReturnNoContentResponseForDeletedHotel() throws Exception {
         long id = 1L;
 
         doNothing().when(hotelRepository).deleteById(id);
@@ -150,7 +144,7 @@ public class HotelControllerTest {
     }
 
     @Test
-    void shouldDeleteAllHotels() throws Exception {
+    void shouldReturnNoContentResponseForAllDeletedHotels() throws Exception {
 
         doNothing().when(hotelRepository).deleteAll();
         mockMvc.perform(delete("/api/hotels"))

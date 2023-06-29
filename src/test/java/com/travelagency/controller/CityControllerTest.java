@@ -30,6 +30,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CityController.class)
@@ -57,7 +58,7 @@ class CityControllerTest {
 
 
     @Test
-    void shouldCreateCity() throws Exception {
+    void shouldCheckIfSaveMethodIsCalledWithCityArgumentAndResponseIsCreated() throws Exception {
         City city = new City("istanbul");
         when(repository.save(city)).thenReturn(city);
 
@@ -69,7 +70,7 @@ class CityControllerTest {
     }
 
     @Test
-    void shouldReturnAllCitiesAndResponseIsOK() throws Exception {
+    void shouldCheckIfFindAllMethodIsCalledAndResponseIsOk() throws Exception {
         List<City> cities = Arrays.asList(new City("istanbul"));
         when(repository.findAll()).thenReturn(cities);
         mockMvc.perform(get("/api/cities").contentType(MediaType.APPLICATION_JSON)
@@ -78,7 +79,7 @@ class CityControllerTest {
     }
 
     @Test
-    void shouldFindCityByIdAndResponseIsOk() throws Exception {
+    void shouldCheckIfFindByIdMethodIsCalledAndResponseIsOk() throws Exception {
         City city = new City("istanbul");
         when(repository.findById(0l)).thenReturn(Optional.of(city));
         mockMvc.perform(get("/api/cities/{id}", 0l).contentType(MediaType.APPLICATION_JSON)
@@ -88,18 +89,19 @@ class CityControllerTest {
     }
 
     @Test
-    void shouldUpdateCityAndResponseIdOk() throws Exception {
+    void shouldCheckIfValuesAreUpdatedAndResponseIsOk() throws Exception {
         City city = new City("istanbul");
         City updatedCity = new City("ankara");
         when(repository.findById(0l)).thenReturn(Optional.of(city));
         when(repository.save(any(City.class))).thenReturn(updatedCity);
         mockMvc.perform(put("/api/cities/{id}", 0l).contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(updatedCity))).andDo(print())
+                .andExpect(jsonPath("$.name").value("ankara"))
                 .andExpect(status().isOk()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
-    void shouldReturnNoContentResponse() throws Exception {
+    void shouldReturnNoContentResponseForDeletedCity() throws Exception {
         doNothing().when(repository).deleteById(0l);
 
         mockMvc.perform(delete("/api/cities/{id}", 0l)).andDo(print())
@@ -108,7 +110,7 @@ class CityControllerTest {
     }
 
     @Test
-    void shouldReturnNoContentResponseForAllCities() throws Exception {
+    void shouldReturnNoContentResponseForAllDeletedCities() throws Exception {
         doNothing().when(repository).deleteAll();
 
         mockMvc.perform(delete("/api/cities")).andDo(print())

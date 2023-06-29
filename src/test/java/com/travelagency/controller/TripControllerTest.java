@@ -54,7 +54,7 @@ public class TripControllerTest {
 
 
     @Test
-    void shouldCreateTrip() throws Exception {
+    void shouldCheckIfSaveMethodIsCalledWithTripArgumentAndResponseIsCreated() throws Exception {
 
         Trip myTrip = new Trip(new User(0L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
@@ -77,7 +77,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldReturnTripById() throws Exception {
+    void shouldCheckIfFindByIdMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         long id = 1L;
 
         Trip myTrip = new Trip(new User(id, "Ben", "Tamm", "Eku@mail.com"),
@@ -99,7 +99,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldReturnAllTrips() throws Exception {
+    void shouldCheckIfGetAllTripsMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         List<Trip> listOfTrips = new ArrayList<>(Arrays.asList(new Trip(new User(1L, "Ben", "Tamm", "Ben@gmail.com"),
                         new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                                 new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
@@ -128,7 +128,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldCheckForUpdatedValuesAndResponseCheck() throws Exception {
+    void shouldCheckForUpdatedValuesAndResponseIsOk() throws Exception {
 
         Trip myUpdatedTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
@@ -154,7 +154,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldDeleteTripById() throws Exception {
+    void shouldReturnNoContentResponseForDeletedTrip() throws Exception {
         long id = 1L;
 
         doNothing().when(tripServiceImpl).deleteTripById(id);
@@ -165,7 +165,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldDeleteAllHotels() throws Exception {
+    void shouldReturnNoContentResponseForAllDeletedTrips() throws Exception {
 
         doNothing().when(tripServiceImpl).deleteAllTrips();
         mockMvc.perform(delete("/api/trips"))
