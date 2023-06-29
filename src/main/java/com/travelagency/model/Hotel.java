@@ -28,9 +28,7 @@ public class Hotel implements Slugify {
     @NonNull
     private String tag;
     @NonNull
-    // no need for next line
-    @JsonIgnoreProperties(value = {"hotels"}, allowSetters = true)
-    //oneToOne
+    //@JsonIgnoreProperties(value = {"hotels"}, allowSetters = true)
     @ManyToOne
     @NotNull(message = "please provide a country for this hotel")
     private Country country;
