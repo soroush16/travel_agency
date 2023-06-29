@@ -20,72 +20,71 @@ public class VariationController {
     private VariationRepository variationRepository;
 
     @Autowired
-    public VariationController (VariationRepository variationRepository){
-        this.variationRepository=variationRepository;
+    public VariationController(VariationRepository variationRepository) {
+        this.variationRepository = variationRepository;
     }
 
     @PostMapping
-    public ResponseEntity<Variation> createVariation (@RequestBody @Valid Variation variation){
-            Variation newVariation = variationRepository.save(new Variation(
-                     variation.getStartDate()
-                    ,variation.getNumberOfNights()
-                    ,variation.getPlan()
-                    ,variation.getHotel()
-                    ,variation.getPrice()
-                    ,variation.getFreeSeats()));
-            return new ResponseEntity<>(newVariation,HttpStatus.CREATED);
+    public ResponseEntity<Variation> createVariation(@RequestBody @Valid Variation variation) {
+        Variation newVariation = variationRepository.save(new Variation(
+                variation.getStartDate()
+                , variation.getNumberOfNights()
+                , variation.getPlan()
+                , variation.getHotel()
+                , variation.getPrice()
+                , variation.getFreeSeats()));
+        return new ResponseEntity<>(newVariation, HttpStatus.CREATED);
 
     }
 
     @GetMapping
-    public ResponseEntity<List<Variation>> getAllVariations(){
+    public ResponseEntity<List<Variation>> getAllVariations() {
 
-            List<Variation> allVariations = new ArrayList<>();
-            allVariations=variationRepository.findAll();
-            return new ResponseEntity<>(allVariations,HttpStatus.OK);
+        List<Variation> allVariations = variationRepository.findAll();
+        return new ResponseEntity<>(allVariations, HttpStatus.OK);
     }
 
     @GetMapping("/{price}")
-    public ResponseEntity<List<Variation>> getAllVariationsWithPriceLessThan(@PathVariable double price){
+    public ResponseEntity<List<Variation>> getAllVariationsWithPriceLessThan(@PathVariable double price) {
 
-            List<Variation> allVariationsLessThanPrice=variationRepository.findByPriceLessThan(price);
-            return new ResponseEntity<>(allVariationsLessThanPrice,HttpStatus.OK);
+        List<Variation> allVariationsLessThanPrice = variationRepository.findByPriceLessThan(price);
+        return new ResponseEntity<>(allVariationsLessThanPrice, HttpStatus.OK);
     }
 
     @GetMapping("/{date}")
-    public ResponseEntity<List<Variation>> getAllVariationsAfterDate(@PathVariable Date date){
+    public ResponseEntity<List<Variation>> getAllVariationsAfterDate(@PathVariable Date date) {
 
-            List<Variation> allVariationsAfterDate=variationRepository.findByStartDateIsAfter(date);
-            return new ResponseEntity<>(allVariationsAfterDate,HttpStatus.OK);
+        List<Variation> allVariationsAfterDate = variationRepository.findByStartDateIsAfter(date);
+        return new ResponseEntity<>(allVariationsAfterDate, HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Variation> updateVariation(@PathVariable long id,@RequestBody Variation variation){
+    public ResponseEntity<Variation> updateVariation(@PathVariable long id, @RequestBody Variation variation) {
 
-            Optional<Variation> foundVariation = variationRepository.findById(id);
-            if(foundVariation.isPresent()){
-                Variation newVariation = foundVariation.get();
-                newVariation.setStartDate(variation.getStartDate());
-                newVariation.setNumberOfNights(variation.getNumberOfNights());
-                newVariation.setPrice(variation.getPrice());
-                newVariation.setPlan(variation.getPlan());
-                newVariation.setFreeSeats(variation.getFreeSeats());
-                return new ResponseEntity<>(variationRepository.save(newVariation),HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<Variation> foundVariation = variationRepository.findById(id);
+        if (foundVariation.isPresent()) {
+            Variation newVariation = foundVariation.get();
+            newVariation.setStartDate(variation.getStartDate());
+            newVariation.setNumberOfNights(variation.getNumberOfNights());
+            newVariation.setPrice(variation.getPrice());
+            newVariation.setPlan(variation.getPlan());
+            newVariation.setFreeSeats(variation.getFreeSeats());
+            return new ResponseEntity<>(variationRepository.save(newVariation), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping
-    public ResponseEntity<HttpStatus> deleteAllVariations(){
+    public ResponseEntity<HttpStatus> deleteAllVariations() {
 
-            variationRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        variationRepository.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteVariationById(@PathVariable long id){
-            variationRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<HttpStatus> deleteVariationById(@PathVariable long id) {
+        variationRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

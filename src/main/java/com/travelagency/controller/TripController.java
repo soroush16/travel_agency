@@ -18,17 +18,16 @@ public class TripController {
     private TripServiceImpl tripServiceImpl;
 
     @Autowired
-    public TripController( TripServiceImpl tripServiceImpl) {
+    public TripController(TripServiceImpl tripServiceImpl) {
         this.tripServiceImpl = tripServiceImpl;
     }
 
     @GetMapping
-    public ResponseEntity<List<Trip>> findAllTrips(){
+    public ResponseEntity<List<Trip>> findAllTrips() {
 
-        List<Trip> customerList = tripServiceImpl.getAllTrips();
-        return new ResponseEntity<>(customerList, HttpStatus.OK);
+        return new ResponseEntity<>(tripServiceImpl.getAllTrips(), HttpStatus.OK);
 
-        }
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Trip> findTripById(@PathVariable long id) {
@@ -51,10 +50,9 @@ public class TripController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTripById(@PathVariable long id) {
 
-         tripServiceImpl.deleteTripById(id);
+        tripServiceImpl.deleteTripById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 
     @DeleteMapping()

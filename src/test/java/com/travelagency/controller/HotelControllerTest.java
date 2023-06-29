@@ -61,7 +61,7 @@ public class HotelControllerTest {
     void shouldCreateHotel() throws Exception {
         Country country = new Country("Turkiye", "", "Nice view", "Türkiye.img");
         City city = new City("Payallar");
-        Hotel hotel = new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",country,city,"Kolibri.img");
+        Hotel hotel = new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231", country, city, "Kolibri.img");
 
         when(hotelRepository.save(hotel)).thenReturn(hotel);
 
@@ -70,7 +70,7 @@ public class HotelControllerTest {
                         .content(new ObjectMapper().writeValueAsString(hotel)))
                 .andExpect(status().isCreated())
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 
@@ -88,7 +88,7 @@ public class HotelControllerTest {
                 .andExpect(jsonPath("$.name").value("Grand Kolibri Prestige & Spa"))
                 .andExpect(jsonPath("$.tag").value("grand-kolibri-prestige-spa-5234"))
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class HotelControllerTest {
                 new Hotel("Villa Augusto", "villa-augusto", "5551",
                         new Country("Türkiye", "grand-kolibri-prestige-spa", "Sunny", "Augusto.img"),
                         new City("Payallar"), "Villa.img"),
-                new Hotel("Club Sun Heaven", "amazing gardens",  "5331",
+                new Hotel("Club Sun Heaven", "amazing gardens", "5331",
                         new Country("Türkiye", "club-sun-heaven", "Nice view", "Türkiye.img"),
                         new City("Payallar"), "Sun.img")));
 
@@ -110,7 +110,7 @@ public class HotelControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(listOfHotels.size()))
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class HotelControllerTest {
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img");
 
-        Hotel updatedHotel = new Hotel("Grand Kolibri Prestige & Spa", "many pools",  "5231",
+        Hotel updatedHotel = new Hotel("Grand Kolibri Prestige & Spa", "many pools", "5231",
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img");
 
@@ -134,7 +134,7 @@ public class HotelControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("many pools"))
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 
@@ -146,7 +146,7 @@ public class HotelControllerTest {
         mockMvc.perform(delete("/api/hotels/{id}", id))
                 .andExpect(status().isNoContent())
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
@@ -156,6 +156,6 @@ public class HotelControllerTest {
         mockMvc.perform(delete("/api/hotels"))
                 .andExpect(status().isNoContent())
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 }

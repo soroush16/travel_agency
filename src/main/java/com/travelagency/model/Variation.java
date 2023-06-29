@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -39,8 +40,6 @@ public class Variation {
     @NotNull(message = "please enter available number of seats")
     @NonNull
     private int freeSeats;
-
-
 
 
 }

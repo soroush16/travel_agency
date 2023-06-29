@@ -43,8 +43,8 @@ class CityControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    public CityControllerTest(MockMvc mockMvc){
-        this.mockMvc=mockMvc;
+    public CityControllerTest(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
     }
 
 
@@ -56,7 +56,6 @@ class CityControllerTest {
     }
 
 
-
     @Test
     void shouldCreateCity() throws Exception {
         City city = new City("istanbul");
@@ -65,7 +64,7 @@ class CityControllerTest {
         mockMvc.perform(post("/api/cities")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(city))).andDo(print())
-                .andExpect(status().isCreated()).andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andExpect(status().isCreated()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 
@@ -74,45 +73,45 @@ class CityControllerTest {
         List<City> cities = Arrays.asList(new City("istanbul"));
         when(repository.findAll()).thenReturn(cities);
         mockMvc.perform(get("/api/cities").contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(cities))).andDo(print())
-                .andExpect(status().isOk()).andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                        .content(new ObjectMapper().writeValueAsString(cities))).andDo(print())
+                .andExpect(status().isOk()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
     void shouldFindCityByIdAndResponseIsOk() throws Exception {
         City city = new City("istanbul");
         when(repository.findById(0l)).thenReturn(Optional.of(city));
-        mockMvc.perform(get("/api/cities/{id}",0l).contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(city))).andDo(print())
-                .andExpect(status().isOk()).andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+        mockMvc.perform(get("/api/cities/{id}", 0l).contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(city))).andDo(print())
+                .andExpect(status().isOk()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 
     @Test
-    void shouldUpdateCityAndResponseIdOk() throws Exception{
+    void shouldUpdateCityAndResponseIdOk() throws Exception {
         City city = new City("istanbul");
         City updatedCity = new City("ankara");
         when(repository.findById(0l)).thenReturn(Optional.of(city));
         when(repository.save(any(City.class))).thenReturn(updatedCity);
-        mockMvc.perform(put("/api/cities/{id}",0l).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/api/cities/{id}", 0l).contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(updatedCity))).andDo(print())
-                .andExpect(status().isOk()).andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andExpect(status().isOk()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
-    void shouldReturnNoContentResponse() throws Exception{
+    void shouldReturnNoContentResponse() throws Exception {
         doNothing().when(repository).deleteById(0l);
 
-        mockMvc.perform(delete("/api/cities/{id}",0l)).andDo(print())
-                .andExpect(status().isNoContent()).andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+        mockMvc.perform(delete("/api/cities/{id}", 0l)).andDo(print())
+                .andExpect(status().isNoContent()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 
     @Test
-    void shouldReturnNoContentResponseForAllCities() throws Exception{
+    void shouldReturnNoContentResponseForAllCities() throws Exception {
         doNothing().when(repository).deleteAll();
 
         mockMvc.perform(delete("/api/cities")).andDo(print())
-                .andExpect(status().isNoContent()).andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andExpect(status().isNoContent()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 }

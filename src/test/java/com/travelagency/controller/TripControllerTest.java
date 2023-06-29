@@ -59,12 +59,12 @@ public class TripControllerTest {
     @Test
     void shouldCreateTrip() throws Exception {
 
-        Trip myTrip = new Trip(new User(0L,"Ben", "Tamm", "Eku@mail.com"),
+        Trip myTrip = new Trip(new User(0L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                                 new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img"), 2, 2);
 
@@ -83,12 +83,12 @@ public class TripControllerTest {
     void shouldReturnTripById() throws Exception {
         long id = 1L;
 
-        Trip myTrip = new Trip(new User(id,"Ben", "Tamm", "Eku@mail.com"),
+        Trip myTrip = new Trip(new User(id, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                                 new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img"), 2, 2);
 
@@ -103,20 +103,20 @@ public class TripControllerTest {
 
     @Test
     void shouldReturnAllTrips() throws Exception {
-        List<Trip> listOfTrips = new ArrayList<>(Arrays.asList(new Trip(new User(1L,"Ben", "Tamm", "Ben@gmail.com"),
+        List<Trip> listOfTrips = new ArrayList<>(Arrays.asList(new Trip(new User(1L, "Ben", "Tamm", "Ben@gmail.com"),
                         new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                                new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                                new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                                         new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                        new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                        new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                         new City("Payallar"), "Kolibri.img"), 2, 2),
-                new Trip(new User(2L,"Soroush", "ppp", "soroush@Gmail.com"),
+                new Trip(new User(2L, "Soroush", "ppp", "soroush@Gmail.com"),
                         new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                                new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                                new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                                         new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                        new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                        new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                         new City("Payallar"), "Kolibri.img"), 2, 2)));
 
@@ -127,27 +127,27 @@ public class TripControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(listOfTrips.size()))
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test
     void shouldUpdateTripWithNewPassengerNumbers() throws Exception {
 
-        Trip myTrip = new Trip(new User(1L,"Ben", "Tamm", "Eku@mail.com"),
+        Trip myTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                                 new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img"), 2, 2);
 
-        Trip myUpdatedTrip = new Trip(new User(1L,"Ben", "Tamm", "Eku@mail.com"),
+        Trip myUpdatedTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                                 new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel",  "5231",
+                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img"), 4, 4);
 
@@ -163,7 +163,7 @@ public class TripControllerTest {
                 .andExpect(jsonPath("$.adults").value(4))
                 .andExpect(jsonPath("$.children").value(4))
                 .andDo(print())
-                .andDo(document("{methodName}",preprocessRequest(prettyPrint()),preprocessResponse(prettyPrint())));
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
     }
 

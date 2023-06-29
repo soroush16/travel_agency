@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
-public class TripServiceImpl implements TripService{
+public class TripServiceImpl implements TripService {
 
     private TripRepository tripRepository;
     private VariationRepository variationRepository;
@@ -19,12 +20,12 @@ public class TripServiceImpl implements TripService{
     @Autowired
     public TripServiceImpl(TripRepository tripRepository, VariationRepository variationRepository) {
         this.tripRepository = tripRepository;
-        this.variationRepository=variationRepository;
+        this.variationRepository = variationRepository;
     }
 
 
     public List<Trip> getAllTrips() {
-        return  tripRepository.findAll();
+        return tripRepository.findAll();
     }
 
 
@@ -45,14 +46,14 @@ public class TripServiceImpl implements TripService{
         if (foundTrip.isPresent()) {
             tripRepository.save(trip);
         }
-        Variation variationWithNewFreeSeats =new Variation();
-        if(trip.getAdults()+trip.getChildren()!= foundTrip.get().getAdults()+ foundTrip.get().getChildren()){
-            int changeInNumberOfPassengers =(trip.getAdults()+trip.getChildren())-(foundTrip.get().getAdults()+ foundTrip.get().getChildren());
-            variationWithNewFreeSeats= trip.getPackageVariation();
-            if(changeInNumberOfPassengers <0){
-                variationWithNewFreeSeats.setFreeSeats(variationWithNewFreeSeats.getFreeSeats()+ changeInNumberOfPassengers);
-            }else{
-                variationWithNewFreeSeats.setFreeSeats(variationWithNewFreeSeats.getFreeSeats()- changeInNumberOfPassengers);
+        Variation variationWithNewFreeSeats = new Variation();
+        if (trip.getAdults() + trip.getChildren() != foundTrip.get().getAdults() + foundTrip.get().getChildren()) {
+            int changeInNumberOfPassengers = (trip.getAdults() + trip.getChildren()) - (foundTrip.get().getAdults() + foundTrip.get().getChildren());
+            variationWithNewFreeSeats = trip.getPackageVariation();
+            if (changeInNumberOfPassengers < 0) {
+                variationWithNewFreeSeats.setFreeSeats(variationWithNewFreeSeats.getFreeSeats() + changeInNumberOfPassengers);
+            } else {
+                variationWithNewFreeSeats.setFreeSeats(variationWithNewFreeSeats.getFreeSeats() - changeInNumberOfPassengers);
             }
             variationRepository.save(variationWithNewFreeSeats);
             return trip;

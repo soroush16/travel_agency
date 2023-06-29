@@ -35,6 +35,7 @@ public class ControllerExceptionHandler {
 
         return message;
     }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage globalRuntimeExceptionHandler(RuntimeException ex, WebRequest request) {

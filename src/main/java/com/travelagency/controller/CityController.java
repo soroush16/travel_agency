@@ -25,15 +25,13 @@ public class CityController {
     @PostMapping
     public ResponseEntity<City> createCity(@RequestBody @Valid City city) {
 
-        City city1 = cityRepository.save(new City(city.getName()));
-        return new ResponseEntity<>(city1, HttpStatus.CREATED);
+        return new ResponseEntity<>(cityRepository.save(city), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<City>> getAllCities() {
 
-        List<City> allCities = cityRepository.findAll();
-        return new ResponseEntity<>(allCities, HttpStatus.OK);
+        return new ResponseEntity<>(cityRepository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

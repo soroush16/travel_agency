@@ -28,7 +28,7 @@ public class Hotel implements Slugify {
     @NonNull
     private String tag;
     @NonNull
-    //@JsonIgnoreProperties(value = {"hotels"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"hotels"}, allowSetters = true)
     @ManyToOne
     @NotNull(message = "please provide a country for this hotel")
     private Country country;
@@ -39,7 +39,7 @@ public class Hotel implements Slugify {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
     private List<Variation> variations;
 
-    private int counter ;
+    private int counter;
     @NonNull
     @NotBlank(message = "please provide image URL")
     private String imageUrl;

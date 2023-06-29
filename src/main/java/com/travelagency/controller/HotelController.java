@@ -24,33 +24,32 @@ public class HotelController {
     public HotelController(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;
 
-
     }
 
     @GetMapping
     public ResponseEntity<List<Hotel>> getAllHotels(@RequestParam(required = false) String search) {
-            List<Hotel> allHotels;
-            if (search == null){
-                allHotels = hotelRepository.findAll();
-            } else {
-                allHotels = hotelRepository.findByNameContainingIgnoreCaseOrCountryNameContainingIgnoreCaseOrCityNameContainingIgnoreCase(search, search, search);
-            }
-            if (allHotels.isEmpty()) {
-                return new ResponseEntity<>(allHotels,HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(allHotels, HttpStatus.OK);
+        List<Hotel> allHotels;
+        if (search == null) {
+            allHotels = hotelRepository.findAll();
+        } else {
+            allHotels = hotelRepository.findByNameContainingIgnoreCaseOrCountryNameContainingIgnoreCaseOrCityNameContainingIgnoreCase(search, search, search);
+        }
+        if (allHotels.isEmpty()) {
+            return new ResponseEntity<>(allHotels, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(allHotels, HttpStatus.OK);
 
     }
 
     @GetMapping("/{slug}")
     public ResponseEntity<Hotel> findHotelBySlug(@PathVariable("slug") String slug) {
 
-            Optional<Hotel> foundHotel = hotelRepository.findHotelByTag(slug);
-            if (foundHotel.isPresent()) {
+        Optional<Hotel> foundHotel = hotelRepository.findHotelByTag(slug);
+        if (foundHotel.isPresent()) {
 
-                return new ResponseEntity<>(foundHotel.get(), HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(foundHotel.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
@@ -76,20 +75,20 @@ public class HotelController {
     @PutMapping
     public ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel) {
 
-            return new ResponseEntity<>(hotelRepository.save(hotel), HttpStatus.OK);
+        return new ResponseEntity<>(hotelRepository.save(hotel), HttpStatus.OK);
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteHotelById(@PathVariable Long id) {
-            hotelRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        hotelRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
     public ResponseEntity<HttpStatus> deleteAllHotels() {
 
-            hotelRepository.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        hotelRepository.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
