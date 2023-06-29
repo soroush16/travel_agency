@@ -21,7 +21,6 @@ public class Country implements Slugify {
     private String name;
     @NonNull
     private String tag;
-    // next lines to be removed
     @OneToMany(cascade = CascadeType.ALL)
     private List<Hotel> hotels;
     @NonNull
