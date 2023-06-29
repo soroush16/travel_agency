@@ -20,10 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -92,7 +89,7 @@ public class TripControllerTest {
                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                 new City("Payallar"), "Kolibri.img"), 2, 2);
 
-        when(tripServiceImpl.getTripById(id)).thenReturn(myTrip);
+        when(tripServiceImpl.getTripById(id)).thenReturn(Optional.of(myTrip));
         mockMvc.perform(get("/api/trips/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -131,16 +128,7 @@ public class TripControllerTest {
     }
 
     @Test
-    void shouldUpdateTripWithNewPassengerNumbers() throws Exception {
-
-        Trip myTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
-                new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
-                        new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
-                                new Country("Türkiye", "", "Nice view", "Türkiye.img"),
-                                new City("Payallar"), "Kolibri.img"), new BigDecimal("200.00"), 4),
-                new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
-                new Country("Türkiye", "", "Nice view", "Türkiye.img"),
-                new City("Payallar"), "Kolibri.img"), 2, 2);
+    void shouldCheckForUpdatedValuesAndResponseCheck() throws Exception {
 
         Trip myUpdatedTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
@@ -152,9 +140,7 @@ public class TripControllerTest {
                 new City("Payallar"), "Kolibri.img"), 4, 4);
 
 
-        when(tripServiceImpl.getTripById(1L)).thenReturn(myTrip);
         when(tripServiceImpl.updateTrip(any(Trip.class))).thenReturn(myUpdatedTrip);
-
 
         mockMvc.perform(put("/api/trips")
                         .contentType(MediaType.APPLICATION_JSON)

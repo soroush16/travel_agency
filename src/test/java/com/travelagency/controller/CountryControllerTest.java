@@ -2,7 +2,7 @@ package com.travelagency.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelagency.model.Country;
-import com.travelagency.repository.CountryRepository;
+import com.travelagency.service.CountryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,7 +45,7 @@ public class CountryControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CountryRepository countryRepository;
+    private CountryServiceImpl countryService;
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
@@ -59,7 +59,7 @@ public class CountryControllerTest {
 
         Country country = new Country("Türkiye", "", "Nice view", "Türkiye.img");
 
-        when(countryRepository.save(country)).thenReturn(country);
+        when(countryService.saveCountry(country)).thenReturn(country);
 
         mockMvc.perform(post("/api/countries")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -77,7 +77,7 @@ public class CountryControllerTest {
 
         Country country = new Country("Türkiye", "", "Nice view", "Türkiye.img");
 
-        when(countryRepository.findById(id)).thenReturn(Optional.of(country));
+        when(countryService.getCountryById(id)).thenReturn(Optional.of(country));
 
         mockMvc.perform(get("/api/countries/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -93,7 +93,7 @@ public class CountryControllerTest {
                 new Country("Greece", "", "Many pools", "Greece.img"),
                 new Country("Italy", "", "Nice view", "Italy.img")));
 
-        when(countryRepository.findAll()).thenReturn(listOfCountries);
+        when(countryService.getAllCountries()).thenReturn(listOfCountries);
 
         mockMvc.perform(get("/api/countries")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -104,19 +104,16 @@ public class CountryControllerTest {
     }
 
     @Test
-    void shouldUpdateCountry() throws Exception {
-        long id = 1L;
-        Country country = new Country("Türkiye", "", "Nice view", "Türkiye.img");
-        Country updatedCountry = new Country("Türkiye", "", "Many pools", "Türkiye.img");
+    void shouldCheckForUpdatedValuesAndResponseCheck() throws Exception {
+        Country updatedCountry = new Country("Spain", "", "Many pools", "Türkiye.img");
 
-        when(countryRepository.findById(id)).thenReturn(Optional.of(country));
-        when(countryRepository.save(ArgumentMatchers.any(Country.class))).thenReturn(updatedCountry);
+        when(countryService.updateCountry(ArgumentMatchers.any(Country.class))).thenReturn(updatedCountry);
 
         mockMvc.perform(put("/api/countries")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(updatedCountry)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.description").value("Many pools"))
+                .andExpect(jsonPath("$.name").value("Spain"))
                 .andDo(print())
                 .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
 
@@ -126,7 +123,7 @@ public class CountryControllerTest {
     void shouldDeleteCountryId() throws Exception {
         long id = 1L;
 
-        doNothing().when(countryRepository).deleteById(id);
+        doNothing().when(countryService).deleteCountryById(id);
         mockMvc.perform(delete("/api/countries/{id}", id))
                 .andExpect(status().isNoContent())
                 .andDo(print())
@@ -136,7 +133,7 @@ public class CountryControllerTest {
     @Test
     void shouldDeleteAllCountries() throws Exception {
 
-        doNothing().when(countryRepository).deleteAll();
+        doNothing().when(countryService).deleteAllCountries();
         mockMvc.perform(delete("/api/countries"))
                 .andExpect(status().isNoContent())
                 .andDo(print())

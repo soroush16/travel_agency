@@ -13,7 +13,7 @@ public interface TripService {
     public Trip saveTrip(Trip trip);
 
 
-    public Trip getTripById(Long id);
+    public Optional<Trip> getTripById(Long id);
 
 
     public Trip updateTrip(Trip trip);

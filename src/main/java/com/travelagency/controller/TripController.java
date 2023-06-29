@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/trips")
@@ -31,8 +32,11 @@ public class TripController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Trip> findTripById(@PathVariable long id) {
-
-        return new ResponseEntity<>(tripServiceImpl.getTripById(id), HttpStatus.OK);
+        Optional<Trip> foundTrip = tripServiceImpl.getTripById(id);
+        if(foundTrip.isPresent()){
+            return new ResponseEntity<>(foundTrip.get(),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping

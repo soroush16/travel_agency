@@ -34,9 +34,8 @@ public class TripServiceImpl implements TripService {
     }
 
 
-    public Trip getTripById(Long id) {
-        return tripRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("No user by ID: " + id));
+    public Optional<Trip> getTripById(Long id) {
+        return tripRepository.findById(id);
     }
 
 
