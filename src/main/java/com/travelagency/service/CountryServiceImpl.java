@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Service
 public class CountryServiceImpl implements CountryService{
-    private CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
 
-    private TagSlugify tagSlugify = new TagSlugify();
+    private final TagSlugify tagSlugify = new TagSlugify();
 
     @Autowired
     public CountryServiceImpl(CountryRepository countryRepository) {
@@ -33,16 +33,14 @@ public class CountryServiceImpl implements CountryService{
             slug = tagSlugify.slugify(foundCountry, slug);
         }
 
-        Country countryToBeSaved = countryRepository.save(new Country(country.getName(),
+        return countryRepository.save(new Country(country.getName(),
                 slug.toString()
                 ,country.getDescription(),country.getImageUrl()));
-        return countryToBeSaved;
     }
 
     @Override
     public Optional<Country> getCountryById(Long id) {
-        Optional<Country> foundCountry = countryRepository.findById(id);
-        return  foundCountry;
+        return countryRepository.findById(id);
     }
 
     @Override
