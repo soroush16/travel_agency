@@ -29,14 +29,14 @@ public class CountryServiceImpl implements CountryService{
     public Country saveCountry(Country country) {
         StringBuilder slug = new StringBuilder(tagSlugify.slugify(country.getName()));
         List<Country> foundCountry = countryRepository.findByTagContains(String.valueOf(slug));
-        if(foundCountry.size()>0){
+        if(!foundCountry.isEmpty()){
             slug = tagSlugify.slugify(foundCountry, slug);
         }
 
-        Country country1 = countryRepository.save(new Country(country.getName(),
+        Country countryToBeSaved = countryRepository.save(new Country(country.getName(),
                 slug.toString()
                 ,country.getDescription(),country.getImageUrl()));
-        return country1;
+        return countryToBeSaved;
     }
 
     @Override
