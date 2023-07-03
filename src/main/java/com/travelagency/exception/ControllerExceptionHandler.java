@@ -48,9 +48,9 @@ public class ControllerExceptionHandler {
         return message;
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ErrorMessage UserNotFoundException(UserNotFoundException ex, WebRequest request) {
+    public ErrorMessage UserNotFoundException(NotFoundException ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.NOT_FOUND.value(),
                 new Date(),

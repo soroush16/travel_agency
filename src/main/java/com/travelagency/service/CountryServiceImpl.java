@@ -1,5 +1,6 @@
 package com.travelagency.service;
 
+import com.travelagency.exception.NotFoundException;
 import com.travelagency.model.Country;
 import com.travelagency.repository.CountryRepository;
 import com.travelagency.slugify.TagSlugify;
@@ -45,7 +46,11 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public Country updateCountry(Country country) {
-        return countryRepository.save(country);
+        if(countryRepository.findById(country.getId()).isPresent()){
+           return countryRepository.save(country);
+        }
+        throw new NotFoundException("No country by ID: " + country.getId() +" was found");
+
     }
 
     @Override

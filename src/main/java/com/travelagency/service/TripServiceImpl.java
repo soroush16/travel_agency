@@ -1,6 +1,6 @@
 package com.travelagency.service;
 
-import com.travelagency.exception.UserNotFoundException;
+import com.travelagency.exception.NotFoundException;
 import com.travelagency.model.Trip;
 import com.travelagency.model.Variation;
 import com.travelagency.repository.TripRepository;
@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 public class TripServiceImpl implements TripService {
 
-    private TripRepository tripRepository;
-    private VariationRepository variationRepository;
+    private final TripRepository tripRepository;
+    private final VariationRepository variationRepository;
 
     @Autowired
     public TripServiceImpl(TripRepository tripRepository, VariationRepository variationRepository) {
@@ -45,7 +45,7 @@ public class TripServiceImpl implements TripService {
         if (foundTrip.isPresent()) {
             tripRepository.save(trip);
         }
-        Variation variationWithNewFreeSeats = new Variation();
+        Variation variationWithNewFreeSeats;
         if (trip.getAdults() + trip.getChildren() != foundTrip.get().getAdults() + foundTrip.get().getChildren()) {
             int changeInNumberOfPassengers = (trip.getAdults() + trip.getChildren()) - (foundTrip.get().getAdults() + foundTrip.get().getChildren());
             variationWithNewFreeSeats = trip.getPackageVariation();
@@ -57,7 +57,7 @@ public class TripServiceImpl implements TripService {
             variationRepository.save(variationWithNewFreeSeats);
             return trip;
         }
-        throw new UserNotFoundException("No user by ID: " + trip.getId());
+        throw new NotFoundException("No Trip by ID: " + trip.getId() +" was found");
     }
 
 

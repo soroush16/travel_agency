@@ -1,9 +1,7 @@
 package com.travelagency.controller;
 
 
-import com.travelagency.exception.UserNotFoundException;
 import com.travelagency.model.Country;
-import com.travelagency.repository.CountryRepository;
 import com.travelagency.service.CountryServiceImpl;
 import com.travelagency.slugify.TagSlugify;
 import org.springframework.beans.factory.annotation.Autowired;
