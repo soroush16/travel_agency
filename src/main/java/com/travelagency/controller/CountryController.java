@@ -3,7 +3,6 @@ package com.travelagency.controller;
 
 import com.travelagency.model.Country;
 import com.travelagency.service.CountryServiceImpl;
-import com.travelagency.slugify.TagSlugify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +15,6 @@ import java.util.Optional;
 @RequestMapping("/api/countries")
 public class CountryController {
     private CountryServiceImpl countryService;
-
-    private TagSlugify tagSlugify = new TagSlugify();
 
     @Autowired
     public CountryController(CountryServiceImpl countryService) {
