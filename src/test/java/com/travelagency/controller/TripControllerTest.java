@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @WebMvcTest(TripController.class)
 @AutoConfigureRestDocs(outputDir = "target/generated-snippets")
-public class TripControllerTest {
+class TripControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

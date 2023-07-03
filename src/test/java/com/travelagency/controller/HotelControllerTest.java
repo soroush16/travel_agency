@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @WebMvcTest(HotelController.class)
 @AutoConfigureRestDocs(outputDir = "target/generated-snippets")
-public class HotelControllerTest {
+class HotelControllerTest {
 
 
     @Autowired
