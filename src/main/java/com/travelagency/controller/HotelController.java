@@ -57,7 +57,7 @@ public class HotelController {
 
         StringBuilder slug = new StringBuilder(tagSlugifier.slugify(hotel.getName()));
         List<Hotel> foundHotel = hotelRepository.findByTagContains(String.valueOf(slug));
-        if (foundHotel.size() > 0) {
+        if (!foundHotel.isEmpty()) {
             slug = tagSlugifier.slugify(foundHotel, slug);
         }
         Hotel newHotel = hotelRepository.save(new Hotel(
