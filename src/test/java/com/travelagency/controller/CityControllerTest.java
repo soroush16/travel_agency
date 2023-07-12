@@ -3,7 +3,6 @@ package com.travelagency.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelagency.model.City;
 import com.travelagency.repository.CityRepository;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -81,7 +80,8 @@ class CityControllerTest {
         mockMvc.perform(post("/api/cities")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(city))).andDo(print())
-                .andExpect(status().isBadRequest()).andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
+                .andExpect(status().isBadRequest())
+                .andDo(document("{methodName}", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())));
     }
 
     @Test

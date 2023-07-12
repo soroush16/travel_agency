@@ -8,14 +8,14 @@ public class TagSlugify {
 
     public String slugify(final String s) {
 
-        final String intermediateResult = Normalizer
+        final String slugifiedText = Normalizer
                 .normalize(s, Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "")
                 .replaceAll("[^-_a-zA-Z0-9]", "-").replaceAll("\\s+", "-")
                 .replaceAll("-+", "-").replaceAll("^-", "")
                 .replaceAll("-$", "").toLowerCase();
-        return intermediateResult.substring(0,
-                Math.min(MAX_SLUG_LENGTH, intermediateResult.length()));
+        return slugifiedText.substring(0,
+                Math.min(MAX_SLUG_LENGTH, slugifiedText.length()));
     }
 
     public <T extends Slugify> StringBuilder slugify(List<T> list, StringBuilder slug) {
