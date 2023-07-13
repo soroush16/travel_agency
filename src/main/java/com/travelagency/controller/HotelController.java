@@ -1,6 +1,6 @@
 package com.travelagency.controller;
 
-import com.travelagency.model.Hotel;
+import com.travelagency.dto.Hotel;
 import com.travelagency.repository.HotelRepository;
 import com.travelagency.slugify.TagSlugify;
 import jakarta.validation.Valid;

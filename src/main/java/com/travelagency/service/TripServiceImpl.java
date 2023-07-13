@@ -1,8 +1,8 @@
 package com.travelagency.service;
 
 import com.travelagency.exception.NotFoundException;
-import com.travelagency.model.Trip;
-import com.travelagency.model.Variation;
+import com.travelagency.dto.Trip;
+import com.travelagency.dto.Variation;
 import com.travelagency.repository.TripRepository;
 import com.travelagency.repository.VariationRepository;
 import org.springframework.beans.factory.annotation.Autowired;

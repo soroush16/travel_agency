@@ -1,7 +1,7 @@
 package com.travelagency.repository;
 
 
-import com.travelagency.model.City;
+import com.travelagency.dto.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

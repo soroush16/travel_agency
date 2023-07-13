@@ -1,7 +1,7 @@
 package com.travelagency.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.travelagency.model.Country;
+import com.travelagency.dto.Country;
 import com.travelagency.service.CountryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

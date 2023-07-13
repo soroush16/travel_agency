@@ -1,4 +1,4 @@
-package com.travelagency.model;
+package com.travelagency.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,6 +1,6 @@
 package com.travelagency.controller;
 
-import com.travelagency.model.Trip;
+import com.travelagency.dto.Trip;
 import com.travelagency.service.TripServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

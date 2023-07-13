@@ -1,7 +1,7 @@
 package com.travelagency.repository;
 
 
-import com.travelagency.model.Trip;
+import com.travelagency.dto.Trip;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

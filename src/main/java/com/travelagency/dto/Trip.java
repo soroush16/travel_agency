@@ -1,4 +1,4 @@
-package com.travelagency.model;
+package com.travelagency.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

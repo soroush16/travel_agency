@@ -1,7 +1,7 @@
 package com.travelagency.repository;
 
 
-import com.travelagency.model.Hotel;
+import com.travelagency.dto.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

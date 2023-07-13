@@ -1,4 +1,4 @@
-package com.travelagency.model;
+package com.travelagency.dto;
 
 import com.travelagency.slugify.Slugify;
 import jakarta.persistence.*;

@@ -1,6 +1,6 @@
 package com.travelagency.service;
 
-import com.travelagency.model.Trip;
+import com.travelagency.dto.Trip;
 
 import java.util.List;
 import java.util.Optional;

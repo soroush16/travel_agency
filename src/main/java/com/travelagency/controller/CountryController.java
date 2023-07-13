@@ -1,7 +1,7 @@
 package com.travelagency.controller;
 
 
-import com.travelagency.model.Country;
+import com.travelagency.dto.Country;
 import com.travelagency.service.CountryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

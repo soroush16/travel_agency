@@ -1,6 +1,6 @@
 package com.travelagency.controller;
 
-import com.travelagency.model.City;
+import com.travelagency.dto.City;
 import com.travelagency.repository.CityRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

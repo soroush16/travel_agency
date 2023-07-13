@@ -1,7 +1,7 @@
 package com.travelagency.controller;
 
 
-import com.travelagency.model.Variation;
+import com.travelagency.dto.Variation;
 import com.travelagency.repository.VariationRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

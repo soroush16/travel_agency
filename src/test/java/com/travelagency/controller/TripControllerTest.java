@@ -2,7 +2,7 @@ package com.travelagency.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travelagency.constants.MealPlan;
-import com.travelagency.model.*;
+import com.travelagency.dto.*;
 import com.travelagency.service.TripServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

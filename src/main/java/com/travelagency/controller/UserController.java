@@ -1,7 +1,7 @@
 package com.travelagency.controller;
 
 
-import com.travelagency.model.User;
+import com.travelagency.dto.User;
 import com.travelagency.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
