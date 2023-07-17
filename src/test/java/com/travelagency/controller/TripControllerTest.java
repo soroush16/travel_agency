@@ -56,7 +56,7 @@ class TripControllerTest {
     @Test
     void shouldCheckIfSaveTripMethodIsCalledWithTripArgumentAndResponseIsCreated() throws Exception {
 
-        Trip myTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
+        Trip myTrip = new Trip(new User( "Eku@mail.com","1234"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                         new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
@@ -80,7 +80,7 @@ class TripControllerTest {
     void shouldCheckIfGetTripByIdMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
         long id = 1L;
 
-        Trip myTrip = new Trip(new User(id, "Ben", "Tamm", "Eku@mail.com"),
+        Trip myTrip = new Trip(new User( "Eku@mail.com","1234"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                         new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
@@ -100,7 +100,7 @@ class TripControllerTest {
 
     @Test
     void shouldCheckIfGetAllTripsMethodIsCalledAndResponseIsOkAndExpectedValuesExist() throws Exception {
-        List<Trip> listOfTrips = new ArrayList<>(Arrays.asList(new Trip(new User(1L, "Ben", "Tamm", "Ben@gmail.com"),
+        List<Trip> listOfTrips = new ArrayList<>(Arrays.asList(new Trip(new User( "Ben@gmail.com","1234"),
                         new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                                 new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
@@ -108,7 +108,7 @@ class TripControllerTest {
                         new Date(2023 - 01 - 20), new Date(2023 - 01 - 27), new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
                         new City("Payallar"), "Kolibri.img"), 2, 2),
-                new Trip(new User(2L, "Soroush", "ppp", "soroush@Gmail.com"),
+                new Trip(new User("Ben@gmail.com","1234"),
                         new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                                 new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                         new Country("Türkiye", "", "Nice view", "Türkiye.img"),
@@ -130,7 +130,7 @@ class TripControllerTest {
     @Test
     void shouldCheckIdUpdateTripMethodIsCalledAndValuesAreUpdatedAndResponseIsOk() throws Exception {
 
-        Trip myUpdatedTrip = new Trip(new User(1L, "Ben", "Tamm", "Eku@mail.com"),
+        Trip myUpdatedTrip = new Trip(new User("Ben@gmail.com","1234"),
                 new Variation(new Date(2023 - 01 - 10), 2, MealPlan.AI,
                         new Hotel("Grand Kolibri Prestige & Spa", "nice hotel", "5231",
                                 new Country("Türkiye", "", "Nice view", "Türkiye.img"),
