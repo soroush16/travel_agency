@@ -1,6 +1,7 @@
 package com.travelagency.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,6 +16,16 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.NOT_FOUND.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage handleUserNameNotFoundException(UsernameNotFoundException ex, WebRequest request) {
         return new ErrorMessage(
                 HttpStatus.NOT_FOUND.value(),
                 new Date(),
