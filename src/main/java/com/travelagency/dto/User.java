@@ -1,14 +1,16 @@
 package com.travelagency.dto;
 
+import com.travelagency.security.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 @Data
 @Builder
@@ -19,8 +21,9 @@ import java.util.Collections;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotBlank(message = "Name can't be empty")
     private String firstname;
 
@@ -32,23 +35,25 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
 
-    @NotBlank
-    @Column(length = 64)
+    @NotBlank(message = "Password can't be empty")
     private String password;
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return this.email;
+        return email;
     }
 
     @Override
