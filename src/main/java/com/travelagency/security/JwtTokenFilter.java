@@ -17,13 +17,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
-
+    private final UserDetailsService userDetailsService;
     private JwtTokenUtil jwtUtil;
 
     @Autowired
-    public JwtTokenFilter(JwtTokenUtil jwtUtil) {
+    public JwtTokenFilter( JwtTokenUtil jwtUtil,@Lazy UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
+        this.userDetailsService= userDetailsService;
+
     }
 
     @Override
@@ -60,7 +63,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         UserDetails userDetails = getUserDetails(token);
 
         UsernamePasswordAuthenticationToken
-                authentication = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+                authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request));
@@ -71,6 +74,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private UserDetails getUserDetails(String token) {
         User userDetails = new User();
         String[] jwtSubject = jwtUtil.getSubject(token).split(",");
+        String userEmail = jwtSubject[1];
+        return this.userDetailsService.loadUserByUsername(userEmail);
 
         userDetails.setId(Long.parseLong(jwtSubject[0]));
         userDetails.setEmail(jwtSubject[1]);
