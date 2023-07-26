@@ -35,20 +35,23 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        final String token;
+        final String userEmail;
 
         if (!hasAuthorizationBearer(request)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String token = getAccessToken(request);
+        token = getAccessToken(request);
+        userEmail = jwtUtil.extractUsername(token);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-        if (!jwtUtil.validateAccessToken(token)) {
+        if (jwtUtil.isTokenValid(token,userDetails)) {
+            setAuthenticationContext(request,userDetails);
             filterChain.doFilter(request, response);
-            return;
         }
 
-        setAuthenticationContext(token, request);
         filterChain.doFilter(request, response);
     }
 
@@ -62,8 +65,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         return header.split(" ")[1].trim();
     }
 
-    private void setAuthenticationContext(String token, HttpServletRequest request) {
-        UserDetails userDetails = getUserDetails(token);
+    private void setAuthenticationContext( HttpServletRequest request,UserDetails userDetails) {
+
 
         UsernamePasswordAuthenticationToken
                 authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -74,12 +77,5 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-    private UserDetails getUserDetails(String token) {
-        User userDetails = new User();
-        String[] jwtSubject = jwtUtil.getSubject(token).split(",");
-        String userEmail = jwtSubject[1];
-        return this.userDetailsService.loadUserByUsername(userEmail);
-
-    }
 
 }
