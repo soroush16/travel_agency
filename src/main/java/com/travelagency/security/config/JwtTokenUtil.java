@@ -1,4 +1,4 @@
-package com.travelagency.security;
+package com.travelagency.security.config;
 
 
 import com.travelagency.dto.User;
@@ -7,12 +7,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-@Component
+@Service
 public class JwtTokenUtil {
     private static final long EXPIRE_DURATION = 86400000; // 24 hour
 

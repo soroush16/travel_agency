@@ -1,4 +1,4 @@
-package com.travelagency.security;
+package com.travelagency.security.config;
 
 import com.travelagency.dto.User;
 import jakarta.servlet.FilterChain;
