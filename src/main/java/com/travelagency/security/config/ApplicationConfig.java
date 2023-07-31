@@ -1,4 +1,4 @@
-package com.travelagency.security;
+package com.travelagency.security.config;
 
 import com.travelagency.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@EnableWebSecurity
+//@EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationSecurity {
+public class ApplicationConfig {
      private final UserRepository userRepo;
      private final JwtTokenFilter jwtTokenFilter;
 
@@ -43,7 +43,10 @@ public class ApplicationSecurity {
         return authConfig.getAuthenticationManager();
     }
 
-    @Bean
+
+
+
+    /*@Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests();
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
@@ -79,7 +82,7 @@ public class ApplicationSecurity {
             .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
+    }*/
 
 
 
