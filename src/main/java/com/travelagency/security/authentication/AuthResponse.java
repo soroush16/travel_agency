@@ -1,4 +1,4 @@
-package com.travelagency.security;
+package com.travelagency.security.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

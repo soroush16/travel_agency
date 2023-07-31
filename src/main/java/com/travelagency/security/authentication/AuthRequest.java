@@ -1,4 +1,4 @@
-package com.travelagency.security;
+package com.travelagency.security.authentication;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

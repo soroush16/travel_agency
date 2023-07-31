@@ -1,7 +1,12 @@
-package com.travelagency.security;
+package com.travelagency.security.authentication;
 
 import com.travelagency.dto.User;
 import com.travelagency.repository.UserRepository;
+import com.travelagency.security.authentication.AuthRequest;
+import com.travelagency.security.authentication.AuthResponse;
+import com.travelagency.security.authentication.RegisterRequest;
+import com.travelagency.security.Role;
+import com.travelagency.security.config.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,7 +32,7 @@ public class AuthenticationService {
 
             User user = (User) authentication.getPrincipal();
             if(user == null){
-                throw new BadCredentialsException("ssss");
+                throw new BadCredentialsException("credentials are not correct");
             }
             String accessToken = jwtUtil.generateAccessToken(user);
         return new AuthResponse(user.getEmail(), accessToken);

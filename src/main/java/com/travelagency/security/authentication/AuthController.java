@@ -1,6 +1,9 @@
-package com.travelagency.security.controller;
+package com.travelagency.security.authentication;
 
-import com.travelagency.security.*;
+import com.travelagency.security.authentication.AuthRequest;
+import com.travelagency.security.authentication.AuthResponse;
+import com.travelagency.security.authentication.RegisterRequest;
+import com.travelagency.security.authentication.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
